@@ -1,0 +1,163 @@
+package com.example.phifilli.imagespinner;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+
+public class MainActivity extends AppCompatActivity {
+
+    private int[] attributes;
+    Spinner spinner1;
+    Spinner spinner2;
+    Spinner spinner3;
+    Spinner spinner4;
+    Spinner spinner5;
+    Spinner spinner6;
+    int initCount;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        initCount = 0;
+
+        attributes = new int[]{R.drawable.ic_launcher_foreground,
+                R.drawable.ic_android_black_24dp,
+                R.drawable.ic_launcher_background,
+                R.drawable.ic_launcher_background,
+                R.drawable.ic_launcher_background,
+                R.drawable.spinner_background};
+        spinner1 = (Spinner) findViewById(R.id.spinner1);
+        spinner2 = (Spinner) findViewById(R.id.spinner2);
+        spinner3 = (Spinner) findViewById(R.id.spinner3);
+        spinner4 = (Spinner) findViewById(R.id.spinner4);
+        spinner5 = (Spinner) findViewById(R.id.spinner5);
+        spinner6 = (Spinner) findViewById(R.id.spinner6);
+
+        spinner1.setAdapter(new aSpinnerAdapter());
+        spinner2.setAdapter(new aSpinnerAdapter());
+        spinner3.setAdapter(new aSpinnerAdapter());
+        spinner4.setAdapter(new aSpinnerAdapter());
+        spinner5.setAdapter(new aSpinnerAdapter());
+        spinner6.setAdapter(new aSpinnerAdapter());
+        spinner1.setSelection(0, false);
+
+        AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                ImageView selectedItem = (ImageView) view.findViewById(R.id.spinnerImage);
+                int currentAdapter = 0;
+                currentAdapter = adapterView.getId();
+
+                if(selectedItem != null && currentAdapter != 0){
+
+                    if(currentAdapter != R.id.spinner1){
+                        ImageView iv = (ImageView) spinner1.getSelectedView().findViewById(R.id.spinnerImage);
+
+                        if(selectedItem.getDrawable().getConstantState() == iv.getDrawable().getConstantState()){
+                            spinner1.setSelection(5);
+                        }
+                    }
+                    if(currentAdapter != R.id.spinner2){
+                        ImageView iv = (ImageView) spinner2.getSelectedView().findViewById(R.id.spinnerImage);
+
+                        if(selectedItem.getDrawable().getConstantState() == iv.getDrawable().getConstantState()){
+                            spinner2.setSelection(5);
+                        }
+                    }
+                    if(currentAdapter != R.id.spinner3){
+                        ImageView iv = (ImageView) spinner3.getSelectedView().findViewById(R.id.spinnerImage);
+
+                        if(selectedItem.getDrawable().getConstantState() == iv.getDrawable().getConstantState()){
+                            spinner3.setSelection(5);
+                        }
+                    }
+                    if(currentAdapter != R.id.spinner4){
+                        ImageView iv = (ImageView) spinner4.getSelectedView().findViewById(R.id.spinnerImage);
+
+                        if(selectedItem.getDrawable().getConstantState() == iv.getDrawable().getConstantState()){
+                            spinner4.setSelection(5);
+                        }
+                    }
+                    if(currentAdapter != R.id.spinner5){
+                        ImageView iv = (ImageView) spinner5.getSelectedView().findViewById(R.id.spinnerImage);
+
+                        if(selectedItem.getDrawable().getConstantState() == iv.getDrawable().getConstantState()){
+                            spinner5.setSelection(5);
+                        }
+                    }
+                    if(currentAdapter != R.id.spinner6){
+                        ImageView iv = (ImageView) spinner6.getSelectedView().findViewById(R.id.spinnerImage);
+
+                        if(selectedItem.getDrawable().getConstantState() == iv.getDrawable().getConstantState()){
+                            spinner6.setSelection(5);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        };
+        
+        spinner1.setOnItemSelectedListener(listener);
+        spinner2.setOnItemSelectedListener(listener);
+        spinner3.setOnItemSelectedListener(listener);
+        spinner4.setOnItemSelectedListener(listener);
+        spinner5.setOnItemSelectedListener(listener);
+        spinner6.setOnItemSelectedListener(listener);
+
+    }
+
+    private class aSpinnerAdapter extends BaseAdapter{
+
+        @Override
+        public int getCount() {
+            return attributes.length;
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+
+            View iView = view;
+            ViewHolder viewHolder;
+            if(view == null){
+                iView = getLayoutInflater().inflate(R.layout.spinner_row, viewGroup, false);
+
+                viewHolder = new ViewHolder();
+                viewHolder.image = (ImageView) iView.findViewById(R.id.spinnerImage);
+
+                iView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolder) iView.getTag();
+            }
+
+            viewHolder.image.setImageDrawable((getResources().getDrawable(attributes[i])));
+            return iView;
+        }
+
+        private class ViewHolder{
+            ImageView image;
+        }
+    }
+}
